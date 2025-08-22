@@ -1,0 +1,30 @@
+services:
+  aplicacion-web:
+    image: ggmartinez/php:8.3-apache 
+    container_name: aplicacion 
+    ports:
+      - "10500:80"
+      - "10501:443"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASS=1234
+      - DB_NAME=prueba
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=prueba
+    
+  
+  api: 
+    image: ggmartinez/php:8.3-apache 
+    container_name: api 
+    volumes:
+      - ./api.json:/var/www/html/api.json
+    ports:
+      - "10600:80"
